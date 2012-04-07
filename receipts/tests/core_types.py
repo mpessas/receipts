@@ -4,7 +4,8 @@ import unittest
 from itertools import chain
 import sqlite3
 from decimal import Decimal
-from receipts.core_types import Vat, Price
+from receipts.core_types import Vat, Price, Receipt
+from receipts.db import conn
 
 
 class VatTests(unittest.TestCase):
@@ -60,3 +61,18 @@ class PriceTests(unittest.TestCase):
         for price in self.correct_prices:
             p = Price(price)
             self.assertEqual(p.__conform__(sqlite3.PrepareProtocol), price)
+
+
+class ReceiptTests(unittest.TestCase):
+    """Test the Receipt class."""
+
+    def setUp(self):
+        conn._filename = ":memory:"
+
+    def tearDown(self):
+        conn._reset_filename()
+
+    def test_save_receipt(self):
+        """Test saving a receipt."""
+        r = Receipt('000000000', '10.23', '2012-03-12')
+        r.save()
