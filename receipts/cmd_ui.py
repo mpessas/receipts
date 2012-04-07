@@ -3,20 +3,7 @@
 import argparse
 from datetime import date
 from receipts.info import description
-
-
-def add_receipt(**kwargs):
-    """Add a receipt to the database."""
-    vat = kwargs['vat']
-    price = kwargs['price']
-    when = kwargs['when']
-    print(vat, price, when)
-
-
-def report_month(**kwargs):
-    """Show a report for the specified month."""
-    month = kwargs['month']
-    print(month)
+from receipts.operations import add_receipt, report_month
 
 
 def setup_parser():
