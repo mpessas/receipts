@@ -41,5 +41,5 @@ conn = _Connection()
 
 def insert_receipt(receipt):
     """Insert a receipt to the database."""
-    with conn():
-        conn.execute(INSERT_RECEIPT, receipt._db_values())
+    with conn() as con:
+        con.execute(INSERT_RECEIPT, receipt._db_values())
